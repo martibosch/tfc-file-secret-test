@@ -1,0 +1,17 @@
+name: test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create tfvars file
+        env:
+          TFVARS: ${{ secrets.TFVARS }}
+        run: |
+          echo $TFVARS | base64 -di > vars.tfvars
+
+      - name: show content
+        run: |
+          cat vars.tfvars
