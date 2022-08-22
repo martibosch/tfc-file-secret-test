@@ -27,7 +27,7 @@ resource "github_repository" "repo" {
 resource "github_actions_secret" "tfvars" {
   repository      = github_repository.repo.name
   secret_name     = "tfvars"
-  plaintext_value = filebase64("vars.tfvars")
+  plaintext_value = fileexists("vars.tfvars") ? filebase64("vars.tfvars") : ""
 
   lifecycle {
     ignore_changes = [
